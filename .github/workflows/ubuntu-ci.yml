@@ -7,6 +7,9 @@ on:
 permissions:
   contents: read
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   tests:
     name: PHP ${{ matrix.php }} tests
@@ -25,7 +28,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          extensions: json, openssl, sockets, curl
+          extensions: json, openssl, sockets, curl, pcntl, posix
           tools: composer:v2
 
       - name: Validate composer manifest
@@ -65,7 +68,7 @@ jobs:
         with:
           php-version: '8.2'
           coverage: none
-          extensions: json, openssl, sockets, curl
+          extensions: json, openssl, sockets, curl, pcntl, posix
           tools: composer:v2
 
       - name: Install dependencies
@@ -142,3 +145,17 @@ jobs:
                 exit(1);
             }
           ' "${SS_STATUS_FILE}"
+
+      - name: Print smoke logs on failure
+        if: failure()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f "${RUNNER_TEMP}/ss-local.stdout.log" ]; then
+            echo "==== ss-local stdout ===="
+            cat "${RUNNER_TEMP}/ss-local.stdout.log"
+          fi
+          if [ -f "${RUNNER_TEMP}/ss-local.log" ]; then
+            echo "==== ss-local log ===="
+            cat "${RUNNER_TEMP}/ss-local.log"
+          fi
