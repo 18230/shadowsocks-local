@@ -74,7 +74,7 @@ export SS_DAEMON=1
 
 ### macOS launchd 模板
 
-- [resources/launchd/com.ssphp.ss-local.plist](../../resources/launchd/com.ssphp.ss-local.plist)
+- [resources/launchd/io.github.18230.ss-local.plist](../../resources/launchd/io.github.18230.ss-local.plist)
 
 ## Windows
 

@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog and this project follows Semantic Versioning.
 
+## [0.1.1] - 2026-03-30
+
+### Changed
+
+- Renamed the Composer package to `18230/shadowsocks-local` for Packagist submission
+- Finalized the public release metadata and publishing docs
+
 ## [0.1.0] - 2026-03-30
 
 ### Added

@@ -3,8 +3,8 @@
 ## Recommended First Release
 
 - Repository: `https://github.com/18230/shadowsocks-local`
-- Composer package name: `ssphp/shadowsocks-local`
-- First version tag: `v0.1.0`
+- Composer package name: `18230/shadowsocks-local`
+- First Packagist version tag: `v0.1.1`
 
 ## Before You Submit
 
@@ -23,7 +23,7 @@ Make sure these are already true:
    `https://github.com/18230/shadowsocks-local`
 3. Submit the package and wait for the first crawl to finish.
 
-After submission, Packagist should discover the existing `v0.1.0` tag automatically.
+After submission, Packagist should discover the existing `v0.1.1` tag automatically.
 
 ## Configure Auto Updates
 
@@ -50,7 +50,7 @@ After Packagist finishes indexing:
 2. Test installation in a clean directory:
 
 ```bash
-composer require ssphp/shadowsocks-local:^0.1
+composer require 18230/shadowsocks-local:^0.1
 ```
 
 3. Run:
@@ -62,5 +62,5 @@ php vendor/bin/ss-local doctor --help
 ## Recommended Follow-up
 
 - Add Packagist version/download badges after the package page is live
-- Create a GitHub Release for `v0.1.0`
+- Create or update the GitHub Release for `v0.1.1`
 - If you publish future tags, keep the changelog updated before tagging

@@ -20,7 +20,7 @@ The package provides these framework-friendly helpers:
 ### Installation
 
 ```bash
-composer require ssphp/shadowsocks-local
+composer require 18230/shadowsocks-local
 ```
 
 Laravel auto-discovery will register:
@@ -100,7 +100,7 @@ final class ApiService
 ### Installation
 
 ```bash
-composer require ssphp/shadowsocks-local
+composer require 18230/shadowsocks-local
 ```
 
 ### Register the Service

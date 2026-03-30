@@ -1,5 +1,5 @@
 {
-    "name": "ssphp/shadowsocks-local",
+    "name": "18230/shadowsocks-local",
     "description": "Pure PHP Shadowsocks local client with a SOCKS5 frontend.",
     "homepage": "https://github.com/18230/shadowsocks-local",
     "type": "library",

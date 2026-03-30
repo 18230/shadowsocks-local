@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.ssphp.ss-local</string>
+    <string>io.github.18230.ss-local</string>
 
     <key>ProgramArguments</key>
     <array>

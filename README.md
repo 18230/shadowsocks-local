@@ -44,7 +44,7 @@ Not implemented yet:
 Install from Packagist:
 
 ```bash
-composer require ssphp/shadowsocks-local
+composer require 18230/shadowsocks-local
 ```
 
 For local development in this repository:
@@ -256,5 +256,5 @@ composer test
 
 ## Notes for Publishing
 
-- If `ssphp/shadowsocks-local` is not the final vendor/package name you want on Packagist, rename the `name` field in `composer.json` before the first public release.
+- The Packagist package name for this repository is `18230/shadowsocks-local`.
 - Run `composer validate --strict` and `composer test` before tagging a release.

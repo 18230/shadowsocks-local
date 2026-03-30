@@ -44,7 +44,7 @@
 从 Packagist 安装：
 
 ```bash
-composer require ssphp/shadowsocks-local
+composer require 18230/shadowsocks-local
 ```
 
 如果你是在当前仓库本地开发：
@@ -250,5 +250,5 @@ composer test
 
 ## 发包前提示
 
-- 如果最终发布到 Packagist 时不想使用 `ssphp/shadowsocks-local` 这个包名，请在第一次公开发布前修改 `composer.json` 里的 `name`。
+- 当前仓库对应的 Packagist 包名为 `18230/shadowsocks-local`。
 - 发版前建议运行 `composer validate --strict` 和 `composer test`。
