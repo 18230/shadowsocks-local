@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog and this project follows Semantic Versioning.
 
-## [Unreleased]
+## [0.2.0] - 2026-03-30
 
 ### Added
 
@@ -13,7 +13,9 @@ The format is based on Keep a Changelog and this project follows Semantic Versio
 
 ### Changed
 
-- Added Packagist badges and expanded publishing documentation
+- Renamed the Composer package to `18230/php-shadowsocks-client`
+- Renamed the public repository references to `php-shadowsocks-client`
+- Added Packagist badges and expanded publishing documentation for the renamed package
 
 ## [0.1.1] - 2026-03-30
 

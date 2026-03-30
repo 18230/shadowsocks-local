@@ -2,9 +2,9 @@
 
 ## Recommended First Release
 
-- Repository: `https://github.com/18230/shadowsocks-local`
-- Composer package name: `18230/shadowsocks-local`
-- First Packagist version tag: `v0.1.1`
+- Repository: `https://github.com/18230/php-shadowsocks-client`
+- Composer package name: `18230/php-shadowsocks-client`
+- First Packagist version tag for the renamed package: `v0.2.0`
 
 ## Before You Submit
 
@@ -20,10 +20,10 @@ Make sure these are already true:
 
 1. Sign in to [Packagist](https://packagist.org/) and open the [Submit page](https://packagist.org/packages/submit).
 2. Paste the public repository URL:
-   `https://github.com/18230/shadowsocks-local`
+   `https://github.com/18230/php-shadowsocks-client`
 3. Submit the package and wait for the first crawl to finish.
 
-After submission, Packagist should discover the existing `v0.1.1` tag automatically.
+After submission, Packagist should discover the existing `v0.2.0` tag automatically.
 
 ## Configure Auto Updates
 
@@ -40,8 +40,8 @@ This repository also includes a workflow-based fallback:
 - Workflow: `.github/workflows/packagist-sync.yml`
 - Trigger: pushes to `main`, version tags, and manual runs
 - Required GitHub secret: `PACKAGIST_API_TOKEN`
-- Optional GitHub repository variable: `PACKAGIST_USERNAME`
-  If you do not set it, the workflow falls back to the GitHub repository owner name.
+- Recommended GitHub repository variable: `PACKAGIST_USERNAME`
+  For this repository, set it to `aiqq363927173` because the Packagist username does not match the GitHub owner.
 
 The workflow uses Packagist's official generic update endpoint:
 
@@ -52,7 +52,7 @@ POST https://packagist.org/api/update-package?username=USERNAME&apiToken=API_TOK
 with a request body like:
 
 ```json
-{"repository":{"url":"https://github.com/18230/shadowsocks-local"}}
+{"repository":{"url":"https://github.com/18230/php-shadowsocks-client"}}
 ```
 
 This workflow keeps the package metadata fresh on Packagist, but the warning banner on the package page can still remain until a native GitHub webhook is configured.
@@ -72,13 +72,13 @@ For this repository you can create or update the native GitHub webhook with one 
 Example:
 
 ```powershell
-$env:PACKAGIST_USERNAME = '18230'
+$env:PACKAGIST_USERNAME = 'aiqq363927173'
 $env:PACKAGIST_API_TOKEN = 'your-packagist-api-token'
 .\scripts\setup-packagist-github-hook.ps1
 ```
 
 ```bash
-export PACKAGIST_USERNAME=18230
+export PACKAGIST_USERNAME=aiqq363927173
 export PACKAGIST_API_TOKEN=your-packagist-api-token
 ./scripts/setup-packagist-github-hook.sh
 ```
@@ -95,11 +95,11 @@ After the native webhook is in place, the "This package is not auto-updated" war
 
 After Packagist finishes indexing:
 
-1. Open the package page and confirm the repository, README, and `v0.1.1` tag are visible.
+1. Open the package page and confirm the repository, README, and `v0.2.0` tag are visible.
 2. Test installation in a clean directory:
 
 ```bash
-composer require 18230/shadowsocks-local:^0.1
+composer require 18230/php-shadowsocks-client:^0.2
 ```
 
 3. Run:
@@ -111,5 +111,5 @@ php vendor/bin/ss-local doctor --help
 ## Recommended Follow-up
 
 - Add or verify Packagist version/download badges after the package page is live
-- Create or update the GitHub Release for `v0.1.1`
+- Create or update the GitHub Release for `v0.2.0`
 - If you publish future tags, keep the changelog updated before tagging

@@ -20,7 +20,7 @@
 ### 安装
 
 ```bash
-composer require 18230/shadowsocks-local
+composer require 18230/php-shadowsocks-client
 ```
 
 Laravel 会通过自动发现注册：
@@ -100,7 +100,7 @@ final class ApiService
 ### 安装
 
 ```bash
-composer require 18230/shadowsocks-local
+composer require 18230/php-shadowsocks-client
 ```
 
 ### 注册服务

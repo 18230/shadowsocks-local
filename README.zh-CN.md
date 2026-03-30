@@ -1,15 +1,15 @@
-# ss-local
+# php-shadowsocks-client
 
-[![Ubuntu CI](https://img.shields.io/github/actions/workflow/status/18230/shadowsocks-local/ubuntu-ci.yml?branch=main&label=ubuntu%20ci)](https://github.com/18230/shadowsocks-local/actions/workflows/ubuntu-ci.yml)
-[![Release](https://img.shields.io/github/v/tag/18230/shadowsocks-local?label=release)](https://github.com/18230/shadowsocks-local/tags)
-[![Packagist Version](https://img.shields.io/packagist/v/18230/shadowsocks-local?label=packagist)](https://packagist.org/packages/18230/shadowsocks-local)
-[![Packagist Downloads](https://img.shields.io/packagist/dt/18230/shadowsocks-local?label=downloads)](https://packagist.org/packages/18230/shadowsocks-local)
-[![License](https://img.shields.io/github/license/18230/shadowsocks-local)](LICENSE)
+[![Ubuntu CI](https://img.shields.io/github/actions/workflow/status/18230/php-shadowsocks-client/ubuntu-ci.yml?branch=main&label=ubuntu%20ci)](https://github.com/18230/php-shadowsocks-client/actions/workflows/ubuntu-ci.yml)
+[![Release](https://img.shields.io/github/v/tag/18230/php-shadowsocks-client?label=release)](https://github.com/18230/php-shadowsocks-client/tags)
+[![Packagist Version](https://img.shields.io/packagist/v/18230/php-shadowsocks-client?label=packagist)](https://packagist.org/packages/18230/php-shadowsocks-client)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/18230/php-shadowsocks-client?label=downloads)](https://packagist.org/packages/18230/php-shadowsocks-client)
+[![License](https://img.shields.io/github/license/18230/php-shadowsocks-client)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777bb4)](https://www.php.net/)
 
 [English](README.md)
 
-`ss-local` 是一个纯 PHP 的 Shadowsocks 本地客户端 Composer 包。它会在本地暴露一个 SOCKS5 代理端口，并通过 Workerman 长驻进程把 TCP 流量中继到远端 Shadowsocks 节点。
+`php-shadowsocks-client` 是一个纯 PHP 的 Shadowsocks 客户端 Composer 包。它通过内置的 `ss-local` 运行时在本地暴露 SOCKS5 代理端口，并通过 Workerman 长驻进程把 TCP 流量中继到远端 Shadowsocks 节点。
 
 ## 功能特性
 
@@ -46,7 +46,7 @@
 从 Packagist 安装：
 
 ```bash
-composer require 18230/shadowsocks-local
+composer require 18230/php-shadowsocks-client
 ```
 
 如果你是在当前仓库本地开发：
@@ -252,7 +252,9 @@ composer test
 
 ## 发包前提示
 
-- 当前仓库对应的 Packagist 包名为 `18230/shadowsocks-local`。
+- 当前仓库对应的 Packagist 包名为 `18230/php-shadowsocks-client`。
+- 这个重命名后的新包建议从 `v0.2.0` 开始发布。
+- 之前的 `18230/shadowsocks-local` 视为旧包名。
 - 发版前建议运行 `composer validate --strict` 和 `composer test`。
 - 如果想让每次 push 后都自动通知 Packagist，请在 GitHub 仓库里添加 `PACKAGIST_API_TOKEN` secret，并按需添加 `PACKAGIST_USERNAME` variable。
 - 如果想消掉 Packagist 页面上的“not auto-updated”提示，再执行一次原生 GitHub hook 脚本：`scripts/setup-packagist-github-hook.ps1` 或 `scripts/setup-packagist-github-hook.sh`。
