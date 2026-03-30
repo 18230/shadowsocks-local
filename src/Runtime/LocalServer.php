@@ -41,6 +41,7 @@ final class LocalServer
     {
         $this->installErrorHandlers();
         $this->configureWorkerman();
+        $this->normalizeWorkermanArguments();
 
         $listen = sprintf('tcp://%s:%d', $this->options->listenHost, $this->options->listenPort);
         $worker = new Worker($listen);
@@ -234,6 +235,24 @@ final class LocalServer
 
             $this->logger->critical('Fatal shutdown error.', $error);
         });
+    }
+
+    private function normalizeWorkermanArguments(): void
+    {
+        if (Platform::isWindows()) {
+            return;
+        }
+
+        global $argv, $argc;
+
+        $script = 'bin/ss-local';
+        if (\is_array($argv) && isset($argv[0]) && \is_string($argv[0]) && $argv[0] !== '') {
+            $script = $argv[0];
+        }
+
+        // Workerman expects a process control command such as "start" on Unix.
+        $argv = [$script, 'start'];
+        $argc = \count($argv);
     }
 
     private function ensureParentDirectory(string $path): void
