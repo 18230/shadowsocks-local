@@ -1,0 +1,17 @@
+[Unit]
+Description=ss-local Shadowsocks SOCKS5 bridge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ss-local
+EnvironmentFile=/opt/ss-local/.env.ss-local
+ExecStart=/opt/ss-local/scripts/start-ss-local.sh
+Restart=always
+RestartSec=3
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target

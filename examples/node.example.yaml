@@ -1,0 +1,25 @@
+node:
+  name: "SG 01"
+  type: ss
+  server: your-node.example.com
+  port: 18001
+  cipher: aes-256-gcm
+  password: your-password
+  udp: true
+
+runtime:
+  listen: 127.0.0.1:1080
+  worker_count: 1
+  max_connections: 1024
+  allow_ips:
+    - 127.0.0.1
+    - ::1
+  connect_timeout: 10
+  connect_retries: 1
+  retry_delay_ms: 250
+  idle_timeout: 900
+  max_send_buffer: 4194304
+  status_file: runtime/ss-local.status.json
+  status_interval: 10
+  log_file: runtime/ss-local.log
+  pid_file: runtime/ss-local.pid

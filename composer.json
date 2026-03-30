@@ -1,0 +1,60 @@
+{
+    "name": "ssphp/shadowsocks-local",
+    "description": "Pure PHP Shadowsocks local client with a SOCKS5 frontend.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "php",
+        "shadowsocks",
+        "socks5",
+        "proxy",
+        "workerman"
+    ],
+    "suggest": {
+        "ext-curl": "Required if your application wants to apply SOCKS5 options directly to PHP curl handles.",
+        "guzzlehttp/guzzle": "Optional if you want to use the provided proxy settings with Guzzle.",
+        "illuminate/support": "Optional for Laravel service-provider integration.",
+        "topthink/framework": "Optional for ThinkPHP service-provider integration."
+    },
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-sockets": "*",
+        "monolog/monolog": "^3.6",
+        "symfony/console": "^7.2",
+        "symfony/yaml": "^7.2",
+        "workerman/workerman": "^5.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "SsLocal\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SsLocal\\Tests\\": "tests/"
+        }
+    },
+    "bin": [
+        "bin/ss-local"
+    ],
+    "scripts": {
+        "test": "@php vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SsLocal\\Integration\\Laravel\\ShadowsocksServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

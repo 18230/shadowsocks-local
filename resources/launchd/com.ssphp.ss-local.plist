@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.ssphp.ss-local</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/sh</string>
+        <string>/opt/ss-local/scripts/start-ss-local.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/opt/ss-local</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PHP_BIN</key>
+        <string>/usr/local/bin/php</string>
+        <key>SS_SERVER</key>
+        <string>your-node.example.com</string>
+        <key>SS_PORT</key>
+        <string>18001</string>
+        <key>SS_CIPHER</key>
+        <string>aes-256-gcm</string>
+        <key>SS_PASSWORD</key>
+        <string>your-password</string>
+        <key>SS_LISTEN</key>
+        <string>127.0.0.1:1080</string>
+        <key>SS_WORKER_COUNT</key>
+        <string>1</string>
+        <key>SS_MAX_CONNECTIONS</key>
+        <string>1024</string>
+        <key>SS_ALLOW_IPS</key>
+        <string>127.0.0.1,::1</string>
+        <key>SS_CONNECT_TIMEOUT</key>
+        <string>10</string>
+        <key>SS_CONNECT_RETRIES</key>
+        <string>1</string>
+        <key>SS_RETRY_DELAY_MS</key>
+        <string>250</string>
+        <key>SS_IDLE_TIMEOUT</key>
+        <string>900</string>
+        <key>SS_MAX_SEND_BUFFER</key>
+        <string>4194304</string>
+        <key>SS_STATUS_FILE</key>
+        <string>/tmp/ss-local.status.json</string>
+        <key>SS_STATUS_INTERVAL</key>
+        <string>10</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/ss-local.stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/ss-local.stderr.log</string>
+</dict>
+</plist>

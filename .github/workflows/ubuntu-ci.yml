@@ -1,0 +1,144 @@
+name: Ubuntu CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: PHP ${{ matrix.php }} tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3', '8.4']
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          extensions: json, openssl, sockets, curl
+          tools: composer:v2
+
+      - name: Validate composer manifest
+        run: composer validate --strict
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Run PHPUnit
+        run: composer test
+
+      - name: Run doctor command
+        run: php bin/ss-local doctor --config=examples/node.example.yaml
+
+      - name: Show CLI help
+        run: php bin/ss-local --help
+
+      - name: Lint PHP sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          php -l bin/ss-local
+          while IFS= read -r -d '' file; do
+            php -l "$file"
+          done < <(find src tests config examples -type f -name '*.php' -print0)
+
+  shell-smoke:
+    name: Linux startup smoke test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          extensions: json, openssl, sockets, curl
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Run shell startup smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x scripts/start-ss-local.sh
+
+          export PHP_BIN="$(command -v php)"
+          export SS_SERVER="example.com"
+          export SS_PORT="8388"
+          export SS_CIPHER="aes-256-gcm"
+          export SS_PASSWORD="secret"
+          export SS_UDP="0"
+          export SS_LISTEN="127.0.0.1:1090"
+          export SS_WORKER_COUNT="1"
+          export SS_MAX_CONNECTIONS="128"
+          export SS_ALLOW_IPS="127.0.0.1,::1"
+          export SS_CONNECT_TIMEOUT="3"
+          export SS_CONNECT_RETRIES="0"
+          export SS_RETRY_DELAY_MS="0"
+          export SS_IDLE_TIMEOUT="60"
+          export SS_MAX_SEND_BUFFER="1048576"
+          export SS_STATUS_FILE="${RUNNER_TEMP}/ss-local.status.json"
+          export SS_STATUS_INTERVAL="1"
+          export SS_LOG_FILE="${RUNNER_TEMP}/ss-local.log"
+          export SS_VERBOSE_LOG="1"
+
+          cleanup() {
+            pkill -P "${SERVER_PID:-0}" >/dev/null 2>&1 || true
+            if [ -n "${SERVER_PID:-}" ]; then
+              kill "${SERVER_PID}" >/dev/null 2>&1 || true
+              wait "${SERVER_PID}" >/dev/null 2>&1 || true
+            fi
+          }
+          trap cleanup EXIT
+
+          ./scripts/start-ss-local.sh >"${RUNNER_TEMP}/ss-local.stdout.log" 2>&1 &
+          SERVER_PID=$!
+
+          for _ in $(seq 1 30); do
+            if php -r '$c=@fsockopen("127.0.0.1", 1090, $errno, $errstr, 0.5); if ($c) { fclose($c); exit(0); } exit(1);'; then
+              break
+            fi
+            sleep 0.5
+          done
+
+          php -r '$c=@fsockopen("127.0.0.1", 1090, $errno, $errstr, 0.5); if (!$c) { fwrite(STDERR, "SOCKS5 port did not start\n"); exit(1); } fclose($c);'
+
+          for _ in $(seq 1 10); do
+            if [ -f "${SS_STATUS_FILE}" ]; then
+              break
+            fi
+            sleep 0.5
+          done
+
+          test -f "${SS_STATUS_FILE}"
+
+          php -r '
+            $data = json_decode((string) file_get_contents($argv[1]), true);
+            if (!is_array($data)) {
+                fwrite(STDERR, "Status file is not valid JSON\n");
+                exit(1);
+            }
+            if (($data["listen"] ?? null) !== "127.0.0.1:1090") {
+                fwrite(STDERR, "Unexpected listen endpoint in status file\n");
+                exit(1);
+            }
+            if (($data["runtime"]["max_connections"] ?? null) !== 128) {
+                fwrite(STDERR, "Unexpected max_connections in status file\n");
+                exit(1);
+            }
+          ' "${SS_STATUS_FILE}"
