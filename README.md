@@ -1,5 +1,10 @@
 # ss-local
 
+[![Ubuntu CI](https://img.shields.io/github/actions/workflow/status/18230/shadowsocks-local/ubuntu-ci.yml?branch=main&label=ubuntu%20ci)](https://github.com/18230/shadowsocks-local/actions/workflows/ubuntu-ci.yml)
+[![Release](https://img.shields.io/github/v/tag/18230/shadowsocks-local?label=release)](https://github.com/18230/shadowsocks-local/tags)
+[![License](https://img.shields.io/github/license/18230/shadowsocks-local)](LICENSE)
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777bb4)](https://www.php.net/)
+
 [中文文档](README.zh-CN.md)
 
 `ss-local` is a pure-PHP Shadowsocks local client package. It exposes a local SOCKS5 endpoint and relays TCP traffic to a remote Shadowsocks server by using Workerman as the long-running runtime.
@@ -231,7 +236,9 @@ Recommended minimum production posture:
 ## Release Notes
 
 - [English release checklist](docs/en/release.md)
+- [English Packagist publishing guide](docs/en/packagist.md)
 - [中文发布检查清单](docs/zh-CN/release.md)
+- [中文 Packagist 发布说明](docs/zh-CN/packagist.md)
 - [Changelog](CHANGELOG.md)
 
 ## Examples

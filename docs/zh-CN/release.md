@@ -17,6 +17,10 @@ php bin/ss-local doctor --config=examples/node.example.yaml
 php bin/ss-local --help
 ```
 
+然后再检查：
+
+- [Packagist 发布说明](packagist.md)
+
 建议再做一次烟雾测试：
 
 1. 用真实节点启动本地代理

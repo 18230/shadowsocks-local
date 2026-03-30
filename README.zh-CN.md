@@ -1,5 +1,10 @@
 # ss-local
 
+[![Ubuntu CI](https://img.shields.io/github/actions/workflow/status/18230/shadowsocks-local/ubuntu-ci.yml?branch=main&label=ubuntu%20ci)](https://github.com/18230/shadowsocks-local/actions/workflows/ubuntu-ci.yml)
+[![Release](https://img.shields.io/github/v/tag/18230/shadowsocks-local?label=release)](https://github.com/18230/shadowsocks-local/tags)
+[![License](https://img.shields.io/github/license/18230/shadowsocks-local)](LICENSE)
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777bb4)](https://www.php.net/)
+
 [English](README.md)
 
 `ss-local` 是一个纯 PHP 的 Shadowsocks 本地客户端 Composer 包。它会在本地暴露一个 SOCKS5 代理端口，并通过 Workerman 长驻进程把 TCP 流量中继到远端 Shadowsocks 节点。
@@ -217,7 +222,9 @@ runtime:
 - [English production guide](docs/en/production.md)
 - [中文生产部署说明](docs/zh-CN/production.md)
 - [English release checklist](docs/en/release.md)
+- [English Packagist publishing guide](docs/en/packagist.md)
 - [中文发布检查清单](docs/zh-CN/release.md)
+- [中文 Packagist 发布说明](docs/zh-CN/packagist.md)
 - [更新日志](CHANGELOG.md)
 
 建议的最小生产配置姿势：

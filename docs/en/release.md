@@ -17,6 +17,10 @@ php bin/ss-local doctor --config=examples/node.example.yaml
 php bin/ss-local --help
 ```
 
+Then review:
+
+- [Packagist publishing guide](packagist.md)
+
 Recommended smoke test:
 
 1. Start the local proxy with a real node

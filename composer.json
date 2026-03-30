@@ -1,6 +1,7 @@
 {
     "name": "ssphp/shadowsocks-local",
     "description": "Pure PHP Shadowsocks local client with a SOCKS5 frontend.",
+    "homepage": "https://github.com/18230/shadowsocks-local",
     "type": "library",
     "license": "MIT",
     "keywords": [
@@ -44,6 +45,11 @@
     ],
     "scripts": {
         "test": "@php vendor/bin/phpunit"
+    },
+    "support": {
+        "issues": "https://github.com/18230/shadowsocks-local/issues",
+        "source": "https://github.com/18230/shadowsocks-local",
+        "docs": "https://github.com/18230/shadowsocks-local#readme"
     },
     "extra": {
         "laravel": {
