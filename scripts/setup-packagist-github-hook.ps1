@@ -1,11 +1,11 @@
-$ErrorActionPreference = 'Stop'
-
 param(
     [string] $Repository = '',
     [string] $Username = '',
     [string] $ApiToken = '',
     [switch] $Force
 )
+
+$ErrorActionPreference = 'Stop'
 
 function Get-GitHubCliPath {
     $gh = Get-Command gh -ErrorAction SilentlyContinue
@@ -19,6 +19,27 @@ function Get-GitHubCliPath {
     }
 
     throw 'GitHub CLI (gh) was not found. Install gh and authenticate before running this script.'
+}
+
+function Invoke-GitHubApi {
+    param(
+        [string] $Executable,
+        [string] $Path,
+        [string] $Method = 'GET',
+        [string] $InputJson = ''
+    )
+
+    if ([string]::IsNullOrWhiteSpace($InputJson)) {
+        $result = & $Executable api $Path --method $Method
+    } else {
+        $result = $InputJson | & $Executable api $Path --method $Method --input -
+    }
+
+    if ($LASTEXITCODE -ne 0) {
+        throw 'GitHub CLI request failed. Make sure gh is authenticated with the admin:repo_hook scope.'
+    }
+
+    return $result
 }
 
 function Resolve-Repository {
@@ -79,7 +100,7 @@ $Username = Resolve-Username -CurrentValue $Username -RepositorySlug $Repository
 $ApiToken = Resolve-ApiToken -CurrentValue $ApiToken
 $payloadUrl = "https://packagist.org/api/github?username=$Username"
 
-$hooks = & $gh api "repos/$Repository/hooks" | ConvertFrom-Json
+$hooks = Invoke-GitHubApi -Executable $gh -Path "repos/$Repository/hooks" | ConvertFrom-Json
 $existing = $hooks | Where-Object { $_.config.url -eq $payloadUrl } | Select-Object -First 1
 
 $body = @{
@@ -106,10 +127,10 @@ if ($existing -and -not $Force) {
 }
 
 if ($existing) {
-    $result = $json | & $gh api "repos/$Repository/hooks/$($existing.id)" --method PATCH --input -
+    $result = Invoke-GitHubApi -Executable $gh -Path "repos/$Repository/hooks/$($existing.id)" -Method 'PATCH' -InputJson $json
     $action = 'updated'
 } else {
-    $result = $json | & $gh api "repos/$Repository/hooks" --method POST --input -
+    $result = Invoke-GitHubApi -Executable $gh -Path "repos/$Repository/hooks" -Method 'POST' -InputJson $json
     $action = 'created'
 }
 

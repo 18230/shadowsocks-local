@@ -83,6 +83,12 @@ export PACKAGIST_API_TOKEN=your-packagist-api-token
 ./scripts/setup-packagist-github-hook.sh
 ```
 
+The GitHub CLI account must have the `admin:repo_hook` scope. If your current login does not include it, refresh GitHub CLI auth first:
+
+```bash
+gh auth refresh -h github.com -s admin:repo_hook
+```
+
 After the native webhook is in place, the "This package is not auto-updated" warning on Packagist should disappear.
 
 ## Verify the Published Package

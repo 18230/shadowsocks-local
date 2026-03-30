@@ -83,6 +83,12 @@ export PACKAGIST_API_TOKEN=your-packagist-api-token
 ./scripts/setup-packagist-github-hook.sh
 ```
 
+GitHub CLI 当前登录账号还需要带上 `admin:repo_hook` scope。如果你现在的 `gh` 登录没有这个权限，先执行：
+
+```bash
+gh auth refresh -h github.com -s admin:repo_hook
+```
+
 原生 webhook 配好后，Packagist 页面上的 “This package is not auto-updated” 提示通常就会消失。
 
 ## 发布后验证
