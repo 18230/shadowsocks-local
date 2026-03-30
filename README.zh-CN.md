@@ -2,6 +2,8 @@
 
 [![Ubuntu CI](https://img.shields.io/github/actions/workflow/status/18230/shadowsocks-local/ubuntu-ci.yml?branch=main&label=ubuntu%20ci)](https://github.com/18230/shadowsocks-local/actions/workflows/ubuntu-ci.yml)
 [![Release](https://img.shields.io/github/v/tag/18230/shadowsocks-local?label=release)](https://github.com/18230/shadowsocks-local/tags)
+[![Packagist Version](https://img.shields.io/packagist/v/18230/shadowsocks-local?label=packagist)](https://packagist.org/packages/18230/shadowsocks-local)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/18230/shadowsocks-local?label=downloads)](https://packagist.org/packages/18230/shadowsocks-local)
 [![License](https://img.shields.io/github/license/18230/shadowsocks-local)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777bb4)](https://www.php.net/)
 
@@ -252,3 +254,5 @@ composer test
 
 - 当前仓库对应的 Packagist 包名为 `18230/shadowsocks-local`。
 - 发版前建议运行 `composer validate --strict` 和 `composer test`。
+- 如果想让每次 push 后都自动通知 Packagist，请在 GitHub 仓库里添加 `PACKAGIST_API_TOKEN` secret，并按需添加 `PACKAGIST_USERNAME` variable。
+- 如果想消掉 Packagist 页面上的“not auto-updated”提示，再执行一次原生 GitHub hook 脚本：`scripts/setup-packagist-github-hook.ps1` 或 `scripts/setup-packagist-github-hook.sh`。

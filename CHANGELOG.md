@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog and this project follows Semantic Versioning.
 
+## [Unreleased]
+
+### Added
+
+- Added GitHub Actions Packagist sync workflow for push and tag updates
+- Added cross-platform scripts to create the native GitHub webhook for Packagist
+
+### Changed
+
+- Added Packagist badges and expanded publishing documentation
+
 ## [0.1.1] - 2026-03-30
 
 ### Changed

@@ -2,6 +2,8 @@
 
 [![Ubuntu CI](https://img.shields.io/github/actions/workflow/status/18230/shadowsocks-local/ubuntu-ci.yml?branch=main&label=ubuntu%20ci)](https://github.com/18230/shadowsocks-local/actions/workflows/ubuntu-ci.yml)
 [![Release](https://img.shields.io/github/v/tag/18230/shadowsocks-local?label=release)](https://github.com/18230/shadowsocks-local/tags)
+[![Packagist Version](https://img.shields.io/packagist/v/18230/shadowsocks-local?label=packagist)](https://packagist.org/packages/18230/shadowsocks-local)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/18230/shadowsocks-local?label=downloads)](https://packagist.org/packages/18230/shadowsocks-local)
 [![License](https://img.shields.io/github/license/18230/shadowsocks-local)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777bb4)](https://www.php.net/)
 
@@ -258,3 +260,5 @@ composer test
 
 - The Packagist package name for this repository is `18230/shadowsocks-local`.
 - Run `composer validate --strict` and `composer test` before tagging a release.
+- To keep Packagist in sync after every push, add the `PACKAGIST_API_TOKEN` repository secret and optionally the `PACKAGIST_USERNAME` repository variable.
+- To remove the "not auto-updated" warning on Packagist, run the native GitHub hook setup script once: `scripts/setup-packagist-github-hook.ps1` or `scripts/setup-packagist-github-hook.sh`.

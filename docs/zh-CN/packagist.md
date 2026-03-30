@@ -29,24 +29,67 @@
 
 Packagist 官方推荐为 GitHub 仓库开启自动更新，这样以后 push 和新 tag 会更快同步。
 
-推荐做法：
+优先推荐的方式还是让 Packagist 自己管理 GitHub hook：
 
-1. 通过 GitHub 登录 Packagist，或者在 Packagist 个人资料里绑定 GitHub 账号。
-2. 确保 Packagist 的 GitHub App 对当前仓库有访问权限。
-3. 如果没有自动装好 hook，可以在 Packagist 里手动触发一次账号同步。
+1. 用 GitHub 账号登录 Packagist，或者在 Packagist 个人资料中绑定 GitHub。
+2. 确保 Packagist 的 GitHub App 已经拿到当前仓库权限。
+3. 如果 hook 没自动装上，可以在 Packagist 里手动触发一次账号同步。
 
-如果你不想给 Packagist 自动配置权限，也可以手动加 webhook：
+这个仓库同时内置了一套“工作流自动通知 Packagist”的兜底方案：
+
+- 工作流文件：`.github/workflows/packagist-sync.yml`
+- 触发时机：`main` 分支 push、版本 tag push、手动触发
+- 必需的 GitHub Secret：`PACKAGIST_API_TOKEN`
+- 可选的 GitHub Repository Variable：`PACKAGIST_USERNAME`
+  如果不设置，工作流会自动退回到 GitHub 仓库 owner 名称。
+
+工作流调用的是 Packagist 官方通用更新接口：
+
+```text
+POST https://packagist.org/api/update-package?username=USERNAME&apiToken=API_TOKEN
+```
+
+请求体示例：
+
+```json
+{"repository":{"url":"https://github.com/18230/shadowsocks-local"}}
+```
+
+这种方式可以保证包信息持续同步，但 Packagist 页面上的“not auto-updated”提示可能依然存在，直到你真正配置了原生 GitHub webhook。
+
+如果你想手动配置原生 GitHub webhook，Packagist 官方给出的参数是：
 
 - Payload URL：`https://packagist.org/api/github?username=PACKAGIST_USERNAME`
 - Content type：`application/json`
 - Secret：你的 Packagist API Token
 - Events：`push`
 
+这个仓库已经内置了一键脚本，可以直接创建或更新这个原生 hook：
+
+- PowerShell：`scripts/setup-packagist-github-hook.ps1`
+- Shell：`scripts/setup-packagist-github-hook.sh`
+
+示例：
+
+```powershell
+$env:PACKAGIST_USERNAME = '18230'
+$env:PACKAGIST_API_TOKEN = 'your-packagist-api-token'
+.\scripts\setup-packagist-github-hook.ps1
+```
+
+```bash
+export PACKAGIST_USERNAME=18230
+export PACKAGIST_API_TOKEN=your-packagist-api-token
+./scripts/setup-packagist-github-hook.sh
+```
+
+原生 webhook 配好后，Packagist 页面上的 “This package is not auto-updated” 提示通常就会消失。
+
 ## 发布后验证
 
 等 Packagist 索引完成后，建议检查：
 
-1. 包页面是否正确显示仓库、README 和 `v0.1.0`
+1. 包页面是否正确显示仓库、README 和 `v0.1.1`
 2. 在空目录里执行安装测试：
 
 ```bash
@@ -61,6 +104,6 @@ php vendor/bin/ss-local doctor --help
 
 ## 后续建议
 
-- 等包页面上线后，再补 Packagist 版本和下载量 badge
+- 包页面上线后，补齐或确认 Packagist 版本和下载量 badge
 - 为 `v0.1.1` 创建或更新 GitHub Release
 - 后续每次打 tag 前先更新 changelog
